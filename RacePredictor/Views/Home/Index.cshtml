@@ -1,0 +1,681 @@
+﻿@model RacePredictor.Models.RaceQueryViewModel
+
+@{
+    ViewBag.Title = "California Race Projector";
+}
+
+<div class="jumbotron hidden-phone">
+<h1>Got Race?</h1>
+<p class="lead greytext">Get instant race/ethnic population projections by county.</p>
+<br />
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal", @name = "racequery_form" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @Html.DropDownListFor(model => model.County.SelectedItem, new SelectList(Model.County.Items, "Value", "Text"), new { style = "width: 250px; height: 50px; font-size: 1.5em;" })
+        <p class="visible-phone"></p>
+        @Html.DropDownListFor(model => model.StartYear.SelectedItem, new SelectList(Model.StartYear.Items, "Value", "Text"), new { style = "width: 175px; height: 50px; font-size: 1.5em;" })
+        <p class="visible-phone"></p>
+        @Html.DropDownListFor(model => model.EndYear.SelectedItem, new SelectList(Model.EndYear.Items, "Value", "Text"), new { style = "width: 175px; height: 50px; font-size: 1.5em;" })
+
+        <br /><br />
+        <button type="submit" class="btn btn-large btn-success" value="Save">Try It!</button>
+    </fieldset>
+}
+</div>
+
+<div class="visible-phone">
+<a name="top"></a>
+<center>
+<h2><b>Got Race?</b></h2>
+<h4>Get instant race/ethnic population projections by county.</h4>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal", @name = "racequery_form" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @Html.DropDownListFor(model => model.County.SelectedItem, new SelectList(Model.County.Items, "Value", "Text"), new { style = "width: 250px; height: 50px; font-size: 1.5em;" })
+        <p class="visible-phone"></p>
+        @Html.DropDownListFor(model => model.StartYear.SelectedItem, new SelectList(Model.StartYear.Items, "Value", "Text"), new { style = "width: 175px; height: 50px; font-size: 1.5em;" })
+        <p class="visible-phone"></p>
+        @Html.DropDownListFor(model => model.EndYear.SelectedItem, new SelectList(Model.EndYear.Items, "Value", "Text"), new { style = "width: 175px; height: 50px; font-size: 1.5em;" })
+
+        <br /><br />
+        <button type="submit" class="btn btn-large btn-success" value="Save">Try It!</button>
+    </fieldset>
+}
+</center>
+</div>
+
+<hr>
+
+
+@if (Model.QueryDiffResult == null)
+{
+    <!-- hidden for phones -->    
+  <div class="row-fluid marketing hidden-phone"> 
+    <div class="row">
+        <div class="span5">
+            <h3>Open Government Data</h3>
+            <p class="greytext">All data and projections on this site are publicly available from the State of California at <a href="http://data.ca.gov" target=_blank>data.ca.gov</a>. The demographic data is provided by the state's <a href="http://www.dof.ca.gov/" target=_blank>Department of Finance</a>.</p>
+        </div>
+        <div class="span5 offset2">
+            <h3>Why Race Projector?</h3>
+            <p class="greytext">This site is an exercise in mining <a href="http://en.wikipedia.org/wiki/Open_data#Open_data_in_government" target=_blank>open, public, government data</a>. We hope our spin on the way this information is communicated and conveyed proves to be useful (and fun) for you.</p>
+        </div>
+    </div> 
+    <div class="row hidden-phone">
+        <div class="span5">
+            <h3>Feedback, Please</h3>
+            <p class="greytext">We are looking for feedback on what folks think of this site and how it could be improved. Please consider filling out a 30-second feedback form!</p>
+        </div>
+        <div class="span5 offset2">
+            <h3>Show Us Love</h3>
+            <p class="greytext">If you found this site useful or interesting, please spread the word in your social circles. Much appreciated!
+            <br />
+            <ul class="social-media-list">
+                <li>
+                    <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.raceprojector.org&amp;send=false&amp;layout=button_count&amp;width=75&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:75px; height:21px;" allowTransparency="true"></iframe>
+                </li>
+                <li>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-size="small" data-text="Check out the California Race Projector!" data-url="http://www.raceprojector.org">Tweet</a>
+                </li>
+                <li> 
+                    <div class="g-plusone" data-size="medium" data-href="http://www.raceprojector.org"></div>
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+  </div>
+    
+  <!-- visible for phones -->    
+  <div class="row-fluid visible-phone">  
+    <div class="row">
+        <div class="span8 offset2">
+            <h4>Open Government Data</h4>
+            <p class="greytext">All data and projections on this site are publicly available from the State of California at <a href="http://data.ca.gov" target=_blank>data.ca.gov</a>. The demographic data is provided by the state's <a href="http://www.dof.ca.gov/" target=_blank>Department of Finance</a>.</p>
+        </div>
+    </div>
+    <div class="row visible-phone">    
+        <div class="span8 offset2">
+            <h4>Why Race Projector?</h4>
+            <p class="greytext">This site is an exercise in mining <a href="http://en.wikipedia.org/wiki/Open_data#Open_data_in_government" target=_blank>open, public, government data</a>. We hope our spin on the way this information is communicated and conveyed proves to be useful (and fun) for you.</p>
+        </div>
+    </div>
+    <div class="row visible-phone">  
+        <div class="span8 offset2">
+            <h4>Feedback, Please</h4>
+            <p class="greytext">We are looking for feedback on what folks think of this site and how it could be improved. Please consider filling out a 30-second feedback form!</p>
+        </div>
+    </div>
+    <div class="row visible-phone">  
+        <div class="span8 offset2">
+            <h4>Show Us Love</h4>
+            <p class="greytext">If you found this site useful or interesting, please spread the word in your social circles. Much appreciated!
+            <br />
+            <ul class="social-media-list">
+                <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.raceprojector.org&amp;send=false&amp;layout=button_count&amp;width=75&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:75px; height:21px;" allowTransparency="true"></iframe>
+                <br>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-size="small" data-text="Check out the California Race Projector!" data-url="http://www.raceprojector.org">Tweet</a>
+                <br>
+                <div class="g-plusone" data-size="medium" data-href="http://www.raceprojector.org"></div>
+            </ul>
+            </p>
+        </div>
+    </div>    
+  </div>
+}
+else
+{    
+  <!-- hidden on phones -->
+  <div class="row-fluid marketing hidden-phone"> 
+    <div class="row">
+       <div class="span12">    
+        <center>
+        <h1>@Model.County.SelectedItem</h1>
+        </center>
+        </div>
+    </div>    
+    <div class="row">
+       <div class="span5">
+        <center>
+        <h2>@Model.StartYear.SelectedItem*</h2>
+        <h4>(@Model.TotalStartYear)</h4>
+        <div id="chart_startYear" style="width: 300px; height: 300px;"></div>
+        </center>
+        <table class="table table-striped">
+            @foreach (var result in Model.QueryStartYearResult)
+            {
+                <tr>
+                <td>
+                <h4><div class="colorBox" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right">@result.YearInfo.PopulationDisplay / @result.YearInfo.PercentageDisplay</span></h4>
+                </td>
+                </tr>                
+            }
+        <td></td>
+        </table>      
+    </div>      
+    <div class="span5 offset2">
+        <center>
+        <h2>@Model.EndYear.SelectedItem*</h2>
+        <h4>(@Model.TotalEndYear)</h4>
+        <div id="chart_endYear" style="width: 300px; height: 300px;"></div>
+        </center>
+        <table class="table table-striped">
+            @foreach (var result in Model.QueryEndYearResult)
+            {
+                <tr>
+                <td>
+                <h4><div class="colorBox" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right">@result.YearInfo.PopulationDisplay / @result.YearInfo.PercentageDisplay</span></h4>
+                </td>
+                </tr>                
+            }
+        <td></td>
+        </table>
+    </div>
+    </div>
+    
+    <div class="row">
+       <div class="span12">
+        <center>    
+        <span class="tableFooter">* By year, projected count / projected percentage of @Model.County.SelectedItem population</span>
+        </center>
+        </div>
+    </div>
+        
+    <br /><br />
+    
+    <div class="row">
+       <div class="span12">    
+        <center>
+        <h1>Trends, @Model.StartYear.SelectedItem to @Model.EndYear.SelectedItem</h1>                 
+        </center>
+        </div>
+    </div> 
+
+    <div class="row">
+       <div class="span8 offset2">  
+        <table class="table table-striped">
+            @if (Model.TotalDiffResult.Diff < 0.0)
+            {
+            <tr>
+            <td>
+            <h4>Total Population<span class="pull-right red">@Model.TotalDiffResult.DiffDisplay / @Model.TotalDiffResult.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else if (Model.TotalDiffResult.Diff > 0.0)
+            {
+            <tr>
+            <td>
+            <h4>Total Population<span class="pull-right green">+@Model.TotalDiffResult.DiffDisplay / +@Model.TotalDiffResult.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+        <td></td>
+        </table>
+        </div>
+    </div> 
+        
+   <div class="row">
+    <div class="span5">
+        <center><h2>Biggest Movers*</h2>
+        <div id="chart_biggest" style="width: 300px; height: 400px;"></div>
+        </center>
+        <table class="table table-striped">
+        @foreach (var result in Model.QueryDiffResult)
+        {
+            if (result.DiffInfo.Diff < 0.0)
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBox" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right red">@result.DiffInfo.DiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else if (result.DiffInfo.Diff > 0.0)
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBox" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right green">+@result.DiffInfo.DiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBox" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right">@result.DiffInfo.DiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+        }
+        <td></td>
+        </table>
+    </div>
+    <div class="span5 offset2">
+        <center><h2>Fastest Change*</h2>
+        <div id="chart_fastest" style="width: 300px; height: 400px;"></div>
+        </center>
+        <table class="table table-striped">
+        <!-- re-order results by percentage diff -->
+        @foreach (var result in Model.QueryDiffResult.OrderByDescending(x => Math.Abs(x.DiffInfo.PerDiff)))
+        {
+            if (result.DiffInfo.PerDiff < 0.0)
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBox" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right red">@result.DiffInfo.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else if (result.DiffInfo.PerDiff > 0.0)
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBox" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right green">+@result.DiffInfo.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBox" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right">@result.DiffInfo.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+        }
+        <td></td>
+        </table>
+    </div>  
+    </div>
+
+    <div class="row">
+       <div class="span12">
+        <center>    
+        <span class="tableFooter">* Projected movement of individual ethnic groups in @Model.County.SelectedItem from @Model.StartYear.SelectedItem to @Model.EndYear.SelectedItem</span>
+        </center>
+        </div>
+    </div> 
+  </div> <!-- end hidden for phones -->
+       
+
+<!-- visible on phones -->
+<div class="row-fluid visible-phone">
+    <a name="queryresults"></a>  
+    <div class="row">
+       <div class="span12">    
+        <center>
+        <h2><b>@Model.County.SelectedItem</b></h2>
+        </center>
+        </div>
+    </div>    
+    <div class="row">
+       <div class="span10 offset1">
+        <center>
+        <h2>@Model.StartYear.SelectedItem*</h2>
+        <h4>(@Model.TotalStartYear)</h4>
+        <div id="chart_startYear2" style="width: 225px; height: 225px;"></div>
+        </center>
+        <br />
+        <table class="table table-striped">
+            @foreach (var result in Model.QueryStartYearResult)
+            {
+                <tr>
+                <td>
+                @if (result.RaceType.Text == "Pacific Islander")
+                {
+                    <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> Pacific Is. <span class="pull-right">@result.YearInfo.PopulationDisplay / @result.YearInfo.PercentageDisplay</span></h4>                                        
+                }
+                else
+                {
+                    <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right">@result.YearInfo.PopulationDisplay / @result.YearInfo.PercentageDisplay</span></h4>                    
+                }
+                </td>
+                </tr>                
+            }
+        <td></td>
+        </table>      
+    </div>    
+    </div>
+    <div class="row">  
+    <div class="span10 offset1">
+        <center>
+        <h2>@Model.EndYear.SelectedItem*</h2>
+        <h4>(@Model.TotalEndYear)</h4>
+        <div id="chart_endYear2" style="width: 225px; height: 225px;"></div>
+        </center>
+        <br />
+        <table class="table table-striped">
+            @foreach (var result in Model.QueryEndYearResult)
+            {
+                <tr>
+                <td>
+                @if (result.RaceType.Text == "Pacific Islander")
+                {
+                    <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> Pacific Is. <span class="pull-right">@result.YearInfo.PopulationDisplay / @result.YearInfo.PercentageDisplay</span></h4>                                        
+                }
+                else
+                {
+                    <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right">@result.YearInfo.PopulationDisplay / @result.YearInfo.PercentageDisplay</span></h4>                    
+                }
+                </td>
+                </tr>                
+            }
+        <td></td>
+        </table>
+    </div>
+    </div>       
+    
+    <div class="row">
+       <div class="span12">
+        <center>    
+        <span class="tableFooter">* By year, projected count / projected percentage of @Model.County.SelectedItem population</span>
+        </center>
+        </div>
+    </div>
+        
+    <br /><br />
+        
+    <div class="row">
+       <div class="span12">    
+        <center>
+        <h2><b>Trends<br />
+        @Model.StartYear.SelectedItem to @Model.EndYear.SelectedItem</b></h2>   
+        </center>
+        </div>
+    </div> 
+    
+    <div class="row">
+       <div class="span10 offset1">  
+        <table class="table table-striped">
+            @if (Model.TotalDiffResult.Diff < 0.0)
+            {
+            <tr>
+            <td>
+            <h4>Total<br />Population<span class="pull-right red">@Model.TotalDiffResult.DiffDisplay / @Model.TotalDiffResult.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else if (Model.TotalDiffResult.Diff > 0.0)
+            {
+            <tr>
+            <td>
+            <h4>Total<br />Pop.<span class="pull-right green">+@Model.TotalDiffResult.DiffDisplay / +@Model.TotalDiffResult.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+        <td></td>
+        </table>
+        </div>
+    </div>    
+  
+   <div class="row">
+    <div class="span10 offset1">
+        <center><h2>Biggest Movers*</h2>
+        <div id="chart_biggest2" style="width: 225px; height: 300px;"></div>
+        </center>
+        <table class="table table-striped">
+        @foreach (var result in Model.QueryDiffResult)
+        {
+            if (result.DiffInfo.Diff < 0.0)
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right red">@result.DiffInfo.DiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else if (result.DiffInfo.Diff > 0.0)
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right green">+@result.DiffInfo.DiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right">@result.DiffInfo.DiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+        }
+        <td></td>
+        </table>
+    </div>
+    </div>
+    <div class="row">
+    <div class="span10 offset1">
+        <center><h2>Fastest Change*</h2>
+        <div id="chart_fastest2" style="width: 225px; height: 300px;"></div>
+        </center>
+        <table class="table table-striped">
+        <!-- re-order results by percentage diff -->
+        @foreach (var result in Model.QueryDiffResult.OrderByDescending(x => Math.Abs(x.DiffInfo.PerDiff)))
+        {
+            if (result.DiffInfo.PerDiff < 0.0)
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right red">@result.DiffInfo.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else if (result.DiffInfo.PerDiff > 0.0)
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right green">+@result.DiffInfo.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+            else
+            {
+            <tr>
+            <td>
+            <h4><div class="colorBoxPhone" style="background-color:@result.RaceType.Color;"></div> @result.RaceType.Text <span class="pull-right">@result.DiffInfo.PerDiffDisplay</span></h4>
+            </td>
+            </tr>
+            }
+        }
+        <td></td>
+        </table>
+    </div>  
+    </div>
+        
+    <div class="row">
+       <div class="span12">
+        <center>    
+        <span class="tableFooter">* Projected movement of individual ethnic groups in @Model.County.SelectedItem from @Model.StartYear.SelectedItem to @Model.EndYear.SelectedItem</span>
+        </center>
+        </div>
+    </div> 
+    <br />
+    <div class="row">
+       <div class="span12">
+        <center>    
+        <a href="#top" class="btn btn-info">Top</a>  
+        </center>
+        </div>
+    </div>
+ </div> <!-- end visible for phones -->
+
+    <!-- survey for class -->    
+    <script src="http://www.surveymonkey.com/jsPop.aspx?sm=IxRCwdNLcN_2bGLIHNgOV4MQ_3d_3d"> </script>    
+
+    <!-- Jump to query results on a post -->
+    <script type='text/javascript'>
+        location.hash = '#queryresults'; 
+    </script>
+    
+    <!-- charts -->
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+            ['Ethnic Group', 'Population'],
+            @foreach (var result in Model.QueryStartYearResult)
+            {
+                <text>
+                ['@result.RaceType.Text', @result.YearInfo.Population],
+                </text>
+            }
+        ]);
+
+            var options = {
+                legend: { position: 'none' },
+                pieSliceText: 'label',
+                pieSliceTextStyle: { fontSize: 13 },
+                tooltip: { textStyle: { color: '#666', fontSize: 20 }},
+                colors: [
+                @foreach (var result in Model.QueryStartYearResult)
+                {
+                    <text>
+                    '@result.RaceType.Color',
+                    </text>
+                }
+                ]
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_startYear'));
+            chart.draw(data, options);
+
+            var chartb = new google.visualization.PieChart(document.getElementById('chart_startYear2'));
+            chartb.draw(data, options);
+        }
+    </script>    
+    
+    <script type="text/javascript">
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+            ['Ethnic Group', 'Population'],
+            @foreach (var result in Model.QueryEndYearResult)
+            {
+                <text>
+                ['@result.RaceType.Text', @result.YearInfo.Population],
+                </text>
+            }
+        ]);
+
+            var options = {
+                legend: { position: 'none' },
+                pieSliceText: 'label',
+                pieSliceTextStyle: { fontSize: 13 },
+                tooltip: { textStyle: { color: '#666', fontSize: 20 }},
+                colors: [
+                @foreach (var result in Model.QueryEndYearResult)
+                {
+                    <text>
+                    '@result.RaceType.Color',
+                    </text>
+                }
+                ]
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_endYear'));
+            chart.draw(data, options);
+
+            var chartb = new google.visualization.PieChart(document.getElementById('chart_endYear2'));
+            chartb.draw(data, options);
+        }
+    </script>     
+    
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+                ['Year',
+                @foreach (var result in Model.QueryDiffResult)
+                {
+                    <text>
+                    '@result.RaceType.Text',
+                    </text>
+                }
+                ],
+                ['',
+                @foreach (var result in Model.QueryDiffResult)
+                {
+                    <text>
+                    @result.DiffInfo.Diff,
+                    </text>
+                }
+                ],
+        ]);
+
+        var options = {
+                legend: { position: 'none' },
+                tooltip: { textStyle: { color: '#666', fontSize: 20 }},
+                vAxis: { textPosition: 'none' },
+                colors: [
+                @foreach (var result in Model.QueryDiffResult)
+                {
+                    <text>
+                    '@result.RaceType.Color',
+                    </text>
+                }
+                ]
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_biggest'));
+        chart.draw(data, options);
+
+        var chartb = new google.visualization.ColumnChart(document.getElementById('chart_biggest2'));
+        chartb.draw(data, options);
+      }
+    </script>   
+    
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+                ['Year',
+                @foreach (var result in Model.QueryDiffResult.OrderByDescending(x => Math.Abs(x.DiffInfo.PerDiff)))
+                {
+                    <text>
+                    '@result.RaceType.Text',
+                    </text>
+                }
+                ],
+                ['',
+                @foreach (var result in Model.QueryDiffResult.OrderByDescending(x => Math.Abs(x.DiffInfo.PerDiff)))
+                {
+                    <text>
+                    @result.DiffInfo.PerDiff,
+                    </text>
+                }
+                ],
+        ]);
+
+        var options = {
+                legend: { position: 'none' },
+                tooltip: { textStyle: { color: '#666', fontSize: 20 }},
+                vAxis: { textPosition: 'none' },
+                colors: [
+                @foreach (var result in Model.QueryDiffResult.OrderByDescending(x => Math.Abs(x.DiffInfo.PerDiff)))
+                {
+                    <text>
+                    '@result.RaceType.Color',
+                    </text>
+                }
+                ]
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_fastest'));
+        chart.draw(data, options);
+
+        var chartb = new google.visualization.ColumnChart(document.getElementById('chart_fastest2'));
+        chartb.draw(data, options);
+      }
+    </script>        
+}

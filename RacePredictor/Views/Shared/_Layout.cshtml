@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="@Url.Content("~/Content/bootstrap-responsive.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+      
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+      
+      /* extra */
+      hr {
+        border-top: 1px solid #ddd;
+      }  
+      .red {
+        color: red;
+      }   
+      .green {
+        color: green;
+      }
+    .greytext
+    {
+        color: #666;    
+    }    
+    h2
+    {
+        font-weight: normal;    
+    }         
+    h4, h5
+    {
+        color: #666;    
+    }       
+    .tableFooter
+    {
+        font-style: italic;
+        color: #666;       
+    }
+    .social-media-list { width: auto; }
+    .social-media-list li { display:block; float: left; width:33.3%; text-align:center; margin: 0 auto;} 
+    .colorBox {   
+        float: left;
+        width: 10px;
+        height: 10px;
+        margin: 2px 6px 5px 5px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,.2);
+    }
+    .colorBoxPhone {   
+        float: left;
+        width: 10px;
+        height: 10px;
+        margin: 4px 6px 5px 5px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,0,0,.2);
+    }            
+    </style>
+
+    <!-- charts -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+</head>
+<body>
+    <div class="container-narrow">
+
+      <div class="masthead">
+        <ul class="hidden-phone nav nav-pills pull-right">
+          <li class="active"><a href="@Url.Action("Index", "Home")">Home</a></li>
+        </ul>
+
+        <a href="@Url.Action("Index", "Home")" class="visible-phone btn pull-right btn-info">Home</a>
+
+        <h3 class="hidden-phone greytext">California Race Projector</h3>
+        <h5 class="visible-phone greytext">California Race Projector</h5>
+      </div>
+
+      <hr>
+
+      @RenderBody()
+
+      <hr>
+
+      <div class="footer">
+        <p>&copy; 2013 <a href="http://www.dabblesoftware.com" target=_blank>Dabble Software</a></p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <script src="http://code.jquery.com/jquery.js"></script> 
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+
+    <!-- Twitter -->
+    <script>        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>
+
+    <!-- Google +1 button tag. -->
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster 
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap-transition.js"></script>
+    <script src="../assets/js/bootstrap-alert.js"></script>
+    <script src="../assets/js/bootstrap-modal.js"></script>
+    <script src="../assets/js/bootstrap-dropdown.js"></script>
+    <script src="../assets/js/bootstrap-scrollspy.js"></script>
+    <script src="../assets/js/bootstrap-tab.js"></script>
+    <script src="../assets/js/bootstrap-tooltip.js"></script>
+    <script src="../assets/js/bootstrap-popover.js"></script>
+    <script src="../assets/js/bootstrap-button.js"></script>
+    <script src="../assets/js/bootstrap-collapse.js"></script>
+    <script src="../assets/js/bootstrap-carousel.js"></script>
+    <script src="../assets/js/bootstrap-typeahead.js"></script>
+    -->
+    <!-- Goog analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-38279742-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+</body>
+</html>
