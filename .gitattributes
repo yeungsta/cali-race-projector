@@ -1,3 +1,5 @@
-*.css linguist-detectable=false
-*.html linguist-detectable=false
-*.htm linguist-detectable=false
+# Auto detect text files and perform LF normalization
+# https://www.davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
+*    text=auto
+
+*.cs text diff=csharp
